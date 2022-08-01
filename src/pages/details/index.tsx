@@ -7,7 +7,7 @@
 import React from 'react'
 
 const PageTwo = () => {
-  return <div>PageTwo</div>
+  return <div>PageTwasasao</div>
 }
 
 export default PageTwo
