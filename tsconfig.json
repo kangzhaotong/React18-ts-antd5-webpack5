@@ -2,6 +2,7 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
+    "esModuleInterop": true,
     "module": "es2020", // 指定编译到的模块系统 es6
     "target": "es5", // 指定编译到的 es 版本 es5
     "strict": true, // 使用严格类型检查
@@ -15,7 +16,7 @@
       "@": ["src/"]
     }
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "./src/react-app-env.d.ts"],
   "exclude": ["node_modules", "dist"],
   "lib": ["ES2021", "dom"],
   "rules": {
