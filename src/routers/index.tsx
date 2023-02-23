@@ -2,13 +2,13 @@
  * @Author: M78.Kangzhaotong
  * @Date: 2022-07-25 17:05:11
  * @Last Modified by: M78.Kangzhaotong
- * @Last Modified time: 2022-12-27 10:09:27
+ * @Last Modified time: 2023-02-23 11:15:14
  */
 import React, { Suspense } from 'react'
-import { WrapRouters } from './wrapRouters'
 import { Routes, Route, useRoutes } from 'react-router-dom'
+import { WrapRouters } from './wrapRouters'
 import { RoutesTypes } from '../types'
-import { Home, PageTwo, Layout } from './pagesPath'
+import { Home, PageTwo, Layout, ThreeDome } from './pagesPath'
 
 export const routerList: RoutesTypes[] = [
   {
@@ -17,31 +17,34 @@ export const routerList: RoutesTypes[] = [
     children: [
       {
         path: 'home',
-        element: (
-          <Suspense fallback={<div>loading...</div>}>
-            <Home />
-          </Suspense>
-        ),
+        element: WrapRouters(Home),
         children: [],
       },
       {
         path: 'details',
-        element: (
-          <Suspense fallback={<div>loading...</div>}>
-            <PageTwo />
-          </Suspense>
-        ),
+        element: WrapRouters(PageTwo),
+        // (
+        //   <Suspense fallback={<div>loading...</div>}>
+        //     <PageTwo />
+        //   </Suspense>
+        // ),
+        children: [],
+      },
+      {
+        path: 'threeDome',
+        element: WrapRouters(ThreeDome),
+        // (
+        //   <Suspense fallback={<div>loading...</div>}>
+        //     <ThreeDome />
+        //   </Suspense>
+        // ),
         children: [],
       },
     ],
   },
   {
     path: '/404',
-    element: (
-      <Suspense fallback={<div>loading...</div>}>
-        <PageTwo />
-      </Suspense>
-    ),
+    element: WrapRouters(PageTwo),
   },
 ]
 

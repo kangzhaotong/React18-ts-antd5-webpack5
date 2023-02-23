@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons'
-import { useNavigate, useLocation, Outlet } from 'react-router-dom'
+import { useNavigate, useLocation, useOutlet } from 'react-router-dom'
 import type { MenuProps } from 'antd'
 import { Breadcrumb, Layout, Menu, theme } from 'antd'
 import './index.less'
@@ -17,6 +17,12 @@ const menuList = [
     name: '详情',
     path: '/details',
     key: '/details',
+    icon: LaptopOutlined,
+  },
+  {
+    name: 'three案例',
+    path: '/threeDome',
+    key: '/threeDome',
     icon: LaptopOutlined,
   },
   {
@@ -53,12 +59,13 @@ const items2: MenuProps['items'] = menuList.map((item, index) => {
 
 const App: React.FC = () => {
   const navigate = useNavigate()
+  const Outlet = useOutlet()
   const location = useLocation()
   const {
     token: { colorBgContainer },
   } = theme.useToken()
   const changeMenuItem = (item: any) => {
-    console.log(item, 'itemitemitemitemitem')
+    // console.log(item, 'itemitemitemitemitem')
   }
   const clickSubMenu = ({ key }: { key: string | number }) => {
     navigate(`${key}`)
@@ -82,16 +89,18 @@ const App: React.FC = () => {
           />
         </Sider>
         <Layout style={{ padding: '0 24px 24px' }}>
-          <Content
-            style={{
-              padding: 24,
-              margin: 0,
-              minHeight: 280,
-              background: colorBgContainer,
-            }}
-          >
-            <Outlet />
-          </Content>
+          <React.Suspense fallback={<div>loading...</div>}>
+            <Content
+              style={{
+                padding: 24,
+                margin: 0,
+                minHeight: 280,
+                background: colorBgContainer,
+              }}
+            >
+              {Outlet}
+            </Content>
+          </React.Suspense>
         </Layout>
       </Layout>
     </Layout>

@@ -1,7 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path')
+// eslint-disable-next-line import/no-extraneous-dependencies
 const WebpackBar = require('webpackbar')
+// eslint-disable-next-line prefer-destructuring
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
+  cache: {
+    type: 'filesystem', // 使用文件缓存
+  },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx', '.json', '.less', '.scss'],
     modules: [path.resolve(__dirname, '../src'), 'node_modules'],
@@ -57,6 +64,10 @@ module.exports = {
       color: '#85d', // 默认green，进度条颜色支持HEX
       basic: false, // 默认true，启用一个简单的日志报告器
       profile: false, // 默认false，启用探查器。
+    }),
+    new BundleAnalyzerPlugin({
+      analyzerPort: 8889,
+      openAnalyzer: false,
     }),
   ],
 }

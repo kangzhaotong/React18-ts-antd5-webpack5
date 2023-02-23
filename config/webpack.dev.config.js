@@ -1,6 +1,9 @@
-// const path = require('path');
+const path = require('path')
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { merge } = require('webpack-merge')
+// eslint-disable-next-line import/no-extraneous-dependencies
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 // eslint-disable-next-line import/extensions
 const common = require('./webpack.common.config.js')
 
@@ -10,7 +13,7 @@ module.exports = merge(common, {
     static: './dist',
     // contentBase: path.join(__dirname, 'dist'),
     compress: true,
-    port: 9000,
+    hot: true,
   },
   devtool: 'eval-cheap-module-source-map',
   module: {
@@ -38,6 +41,13 @@ module.exports = merge(common, {
       template: 'public/index.html',
       inject: 'body',
       hash: false,
+    }),
+    new ESLintPlugin({
+      // 指定检查文件的根目录
+      context: path.resolve(__dirname, '../src'),
+      exclude: 'node_modules', // 默认值
+      cache: true, // 开启缓存
+      cacheLocation: path.resolve(__dirname, '../node_modules/.cache/.eslintcache'), // 缓存目录
     }),
   ],
 })
